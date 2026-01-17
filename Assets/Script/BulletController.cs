@@ -55,10 +55,10 @@ public class BulletController : MonoBehaviour
         return currentDirection; // Should not be called in straight flight mode
     }
 
-    void OnTrrigerEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
         // "wall" または "Enemy" タグを持つオブジェクトに衝突した場合
-        if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("wall") || other.gameObject.CompareTag("Enemy"))
         {
             HandleDestruction();
         }
@@ -69,4 +69,5 @@ public class BulletController : MonoBehaviour
         // 弾丸オブジェクト自身を破棄
         Destroy(gameObject);
     }
+    
 }
