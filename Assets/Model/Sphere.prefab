@@ -81,7 +81,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 5
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -134,8 +134,8 @@ TrailRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 1
-    textureScale: {x: 0.5, y: 0.5}
+    textureMode: 0
+    textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0
@@ -154,8 +154,8 @@ GameObject:
   - component: {fileID: 3381799302687939586}
   - component: {fileID: 7292403785394783707}
   - component: {fileID: 8726599223631894575}
-  - component: {fileID: -6843626042983435285}
   - component: {fileID: 4153153780470646699}
+  - component: {fileID: -7669869315323026366}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -251,28 +251,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6843626042983435285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9035271514674803680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61f933278cb294b54bcc89ee6d8996ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BulletController
-  ascentDuration: 5
-  ascentSpeed: 1
-  speed: 20
-  rotSpeed: 360
 --- !u!54 &4153153780470646699
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -300,3 +284,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7669869315323026366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035271514674803680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f933278cb294b54bcc89ee6d8996ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletController
+  speed: 15
+  rotSpeed: 360
+  avoidanceDistance: 5
+  avoidanceAngle: 45

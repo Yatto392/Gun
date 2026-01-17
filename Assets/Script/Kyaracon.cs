@@ -21,41 +21,18 @@ public class Kyaracon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // スペースキーで通常弾を発射
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // --- Target Finding Logic ---
-            GameObject bestTarget = null;
-            float smallestAngle = 180.0f; // Start with a large angle
+                // --- Fire Normal Bullet ---
+                GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+                BulletController bulletCtrl = bullet.GetComponent<BulletController>();
 
-            // Find all enemies
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-            foreach (GameObject enemy in enemies)
-            {
-                Vector3 dirToEnemy = enemy.transform.position - transform.position;
-                float angle = Vector3.Angle(transform.forward, dirToEnemy);
-
-                // Check if the enemy is in front and the angle is the smallest so far
-                if (angle < smallestAngle)
+                if (bulletCtrl != null)
                 {
-                    smallestAngle = angle;
-                    bestTarget = enemy;
+                    // ターゲットをセットしないので、まっすぐ飛ぶ
+                    bulletCtrl.Target = null;
                 }
-            }
-            
-            // --- Fire Bullet ---
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            BulletController bulletCtrl = bullet.GetComponent<BulletController>();
-
-            if (bulletCtrl != null)
-            {
-                // If a target was found, assign it
-                if (bestTarget != null)
-                {
-                    bulletCtrl.Target = bestTarget;
-                }
-                // If no target is found, the bullet will fly straight
-            }
         }
 
         if (targetObjects == null || targetObjects.Count == 0)

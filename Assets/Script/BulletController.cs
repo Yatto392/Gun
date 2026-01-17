@@ -3,67 +3,59 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     // --- State Machine ---
-    private enum BulletState { Ascent, Homing }
-    private BulletState currentState = BulletState.Ascent;
-    private float ascentTimer = 0.0f;
-    public float ascentDuration = 0.5f; // 上昇する時間
-    public float ascentSpeed = 20.0f;   // 上昇速度
+    private enum BulletState { Ascent, Homing } // Homing state will now represent straight flight
+    private BulletState currentState = BulletState.Homing; // Start directly in straight flight state
 
-    // --- Homing Settings ---
-    private GameObject _target = null;
+    // --- Straight Flight Settings ---
     public float speed = 15.0f;    // 1秒間に進む距離
-    public float rotSpeed = 360.0f; // 1秒間に回転する角度
+    // rotSpeed, avoidanceDistance, avoidanceAngle and _target are no longer needed for straight flight.
+    // However, keeping them to minimize structural changes if not explicitly requested to remove members.
+    private GameObject _target = null; // No longer used for homing
+    public float rotSpeed = 360.0f; // No longer used for homing
+    public float avoidanceDistance = 5.0f; // No longer used for avoidance
+    public float avoidanceAngle = 45.0f; // No longer used for avoidance
 
     // --- Public Property for Target ---
+    // Target property kept for compatibility, but its value won't influence flight path
+
+    
     public GameObject Target
     {
         set { _target = value; }
         get { return _target; }
     }
-    
+
+    void Start()
+    {
+        Destroy(gameObject,10);
+    }
+
     void Update()
     {
         switch (currentState)
         {
-            case BulletState.Ascent:
-                // --- Ascent Logic ---
-                transform.position += Vector3.up * ascentSpeed * Time.deltaTime;
-                ascentTimer += Time.deltaTime;
-                if (ascentTimer >= ascentDuration)
-                {
-                    currentState = BulletState.Homing;
-                }
-                break;
+            case BulletState.Homing: // Now functions as Straight Flight
+                // --- Straight Flight Logic (XY Plane) ---
+                // Simply move forward along current transform.forward, constrained to XY plane
 
-            case BulletState.Homing:
-                // --- Homing Logic ---
-                if (_target != null)
-                {
-                    // ターゲットまでの角度を取得
-                    Vector3 vecTarget = _target.transform.position - transform.position;
-                    Vector3 vecForward = transform.TransformDirection(Vector3.forward);
-                    float angleDiff = Vector3.Angle(vecForward, vecTarget);
-                    float angleAdd = (rotSpeed * Time.deltaTime);
-                    Quaternion rotTarget = Quaternion.LookRotation(vecTarget);
-
-                    if (angleDiff <= angleAdd)
-                    {
-                        transform.rotation = rotTarget;
-                    }
-                    else
-                    {
-                        float t = (angleAdd / angleDiff);
-                        transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, t);
-                    }
-                }
-
-                // --- Forward Movement ---
-                transform.position += transform.TransformDirection(Vector3.forward) * speed * Time.deltaTime;
+                // 1. 前進 (Z座標を固定)
+                float originalZ = transform.position.z;
+                transform.position += transform.forward * speed * Time.deltaTime;
+                Vector3 newPos = transform.position;
+                newPos.z = originalZ;
+                transform.position = newPos;
                 break;
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    // FindAvoidancePath is no longer used.
+    // Keeping it for now to minimize structural changes unless explicitly requested to remove members.
+    Vector3 FindAvoidancePath(Vector3 currentDirection)
+    {
+        return currentDirection; // Should not be called in straight flight mode
+    }
+
+    void OnTrrigerEnter(Collision collision)
     {
         // "wall" または "Enemy" タグを持つオブジェクトに衝突した場合
         if (collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Enemy"))
