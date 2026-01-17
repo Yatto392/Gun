@@ -67,7 +67,7 @@ public class BulletController : MonoBehaviour
     void HandleDestruction()
     {
         // 弾丸オブジェクト自身を破棄
-        Destroy(gameObject);
+        Destroy(gameObject,0.3f);
     }
-
+     
 }
