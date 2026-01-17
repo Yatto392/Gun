@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    // --- State Machine ---
+    private enum BulletState { Ascent, Homing }
+    private BulletState currentState = BulletState.Ascent;
+    private float ascentTimer = 0.0f;
+    public float ascentDuration = 0.5f; // 上昇する時間
+    public float ascentSpeed = 20.0f;   // 上昇速度
+
     // --- Homing Settings ---
     private GameObject _target = null;
     public float speed = 15.0f;    // 1秒間に進む距離
     public float rotSpeed = 360.0f; // 1秒間に回転する角度
-
-    // --- Particle Trail Settings ---
-
-    private GameObject particleInstance;
-    private ParticleSystem ps;
 
     // --- Public Property for Target ---
     public GameObject Target
@@ -18,33 +20,47 @@ public class BulletController : MonoBehaviour
         set { _target = value; }
         get { return _target; }
     }
-
-
+    
     void Update()
     {
-        // --- Homing Logic ---
-        if (_target != null)
+        switch (currentState)
         {
-            // ターゲットまでの角度を取得
-            Vector3 vecTarget = _target.transform.position - transform.position;
-            Vector3 vecForward = transform.TransformDirection(Vector3.forward);
-            float angleDiff = Vector3.Angle(vecForward, vecTarget);
-            float angleAdd = (rotSpeed * Time.deltaTime);
-            Quaternion rotTarget = Quaternion.LookRotation(vecTarget);
+            case BulletState.Ascent:
+                // --- Ascent Logic ---
+                transform.position += Vector3.up * ascentSpeed * Time.deltaTime;
+                ascentTimer += Time.deltaTime;
+                if (ascentTimer >= ascentDuration)
+                {
+                    currentState = BulletState.Homing;
+                }
+                break;
 
-            if (angleDiff <= angleAdd)
-            {
-                transform.rotation = rotTarget;
-            }
-            else
-            {
-                float t = (angleAdd / angleDiff);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, t);
-            }
+            case BulletState.Homing:
+                // --- Homing Logic ---
+                if (_target != null)
+                {
+                    // ターゲットまでの角度を取得
+                    Vector3 vecTarget = _target.transform.position - transform.position;
+                    Vector3 vecForward = transform.TransformDirection(Vector3.forward);
+                    float angleDiff = Vector3.Angle(vecForward, vecTarget);
+                    float angleAdd = (rotSpeed * Time.deltaTime);
+                    Quaternion rotTarget = Quaternion.LookRotation(vecTarget);
+
+                    if (angleDiff <= angleAdd)
+                    {
+                        transform.rotation = rotTarget;
+                    }
+                    else
+                    {
+                        float t = (angleAdd / angleDiff);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, t);
+                    }
+                }
+
+                // --- Forward Movement ---
+                transform.position += transform.TransformDirection(Vector3.forward) * speed * Time.deltaTime;
+                break;
         }
-
-        // --- Forward Movement ---
-        transform.position += transform.TransformDirection(Vector3.forward) * speed * Time.deltaTime;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -58,22 +74,6 @@ public class BulletController : MonoBehaviour
 
     void HandleDestruction()
     {
-        // パーティクルインスタンス（残像）が存在する場合の処理
-        if (particleInstance != null)
-        {
-            particleInstance.transform.SetParent(null); // 親子関係を解除
-
-            if (ps != null)
-            {
-                ps.Stop(); // 新しいパーティクルの放出を停止
-                Destroy(particleInstance, ps.main.duration + ps.main.startLifetime.constantMax);
-            }
-            else
-            {
-                Destroy(particleInstance, 3f);
-            }
-        }
-
         // 弾丸オブジェクト自身を破棄
         Destroy(gameObject);
     }
