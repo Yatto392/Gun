@@ -61,6 +61,7 @@ public class BulletController : MonoBehaviour
         if (other.gameObject.CompareTag("wall") || other.gameObject.CompareTag("Enemy"))
         {
             HandleDestruction();
+
         }
     }
 
@@ -68,6 +69,6 @@ public class BulletController : MonoBehaviour
     {
         // 弾丸オブジェクト自身を破棄
         Destroy(gameObject,0.3f);
+        
     }
-     
 }
