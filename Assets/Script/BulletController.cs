@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+
     // --- State Machine ---
     private enum BulletState { Ascent, Homing } // Homing state will now represent straight flight
     private BulletState currentState = BulletState.Homing; // Start directly in straight flight state
@@ -68,7 +69,7 @@ public class BulletController : MonoBehaviour
     void HandleDestruction()
     {
         // 弾丸オブジェクト自身を破棄
-        Destroy(gameObject,0.3f);
-        
+        Destroy(gameObject);
+
     }
 }

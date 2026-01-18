@@ -989,6 +989,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6566636a2ac8b4881879f1fd812bf038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPsystem
+  DamageObj: {fileID: 2555800392395820938, guid: 9b2c3eb4e3baf4cbe82a78a82e0df9e8, type: 3}
+  PosObj: {fileID: 827196664}
+  AdjPos: {x: 0, y: 0, z: 0}
   animator: {fileID: 827196665}
 --- !u!1 &832575517
 GameObject:
@@ -1475,7 +1478,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
