@@ -24,7 +24,7 @@ public class HPsystem : MonoBehaviour
     
     void Start()
     {
-        pos.Serialize(false);
+        pos.SetActive(false);
         Hp = maxHp; // Initialize current HP to max HP
         if (hpFillImage != null)
         {
@@ -61,7 +61,7 @@ public class HPsystem : MonoBehaviour
 
         if (Hp <= 0) // Changed from < 0 || == 0 to just <= 0 for clarity
         {
-            pos.Serialize(true);
+            pos.SetActive(true);
             Destroy(gameObject);
         }
     }
