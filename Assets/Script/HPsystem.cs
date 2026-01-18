@@ -15,10 +15,14 @@ public class HPsystem : MonoBehaviour
     public Animator animator;
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Bullet")
+        if(other.gameObject.CompareTag("Bullet"))
         {
-            animator.SetTrigger("Damage");
-            ViewDamage(1);
+            BulletState bulletState = other.gameObject.GetComponent<BulletState>();
+            if (bulletState != null)
+            {
+                animator.SetTrigger("Damage");
+                ViewDamage(bulletState.Damagep);
+            }
         }
     }
 

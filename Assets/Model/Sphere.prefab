@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 8726599223631894575}
   - component: {fileID: 4153153780470646699}
   - component: {fileID: -7669869315323026366}
+  - component: {fileID: -7854741308799577114}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Bullet
@@ -300,3 +301,16 @@ MonoBehaviour:
   rotSpeed: 360
   avoidanceDistance: 5
   avoidanceAngle: 45
+--- !u!114 &-7854741308799577114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9035271514674803680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdf5116888664faba3d30b5ce8835a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletState
+  Damagep: 5
