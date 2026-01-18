@@ -28,7 +28,7 @@ public class BulletController : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject,10);
+        Destroy(gameObject,3);
     }
 
     void Update()
@@ -69,7 +69,7 @@ public class BulletController : MonoBehaviour
     void HandleDestruction()
     {
         // 弾丸オブジェクト自身を破棄
-        Destroy(gameObject,0.01f);
+        Destroy(gameObject);
 
     }
 }
