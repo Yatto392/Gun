@@ -9,6 +9,9 @@ public class Kyaracon : MonoBehaviour
     private int currentIndex = 0;
     public GameObject bulletPrefab; // 弾丸のプレハブ
 
+    public float fireCooldown = 0.5f; // 弾丸の発射クールダウン時間
+    private float lastFireTime = -1.0f; // 最後に弾丸を発射した時間
+
     public float moveCooldown = 1.0f; // 移動のクールダウン時間（秒）
     private float lastMoveTime = -1.0f; // 最後に移動した時間
     public Image cooldownGauge; // クールダウン表示用のUI画像
@@ -49,16 +52,39 @@ public class Kyaracon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // --- 現在の足場が有効かチェック ---
+        if (targetObjects != null && targetObjects.Count > 0)
+        {
+            // currentIndexが範囲外になることを防ぐ
+            if (currentIndex >= targetObjects.Count)
+            {
+                currentIndex = targetObjects.Count - 1;
+            }
+
+            GameObject currentPos = targetObjects[currentIndex];
+            if (currentPos == null || !currentPos.activeInHierarchy)
+            {
+                // 足場が消えたら代わりの足場を探して移動
+                FindAndMoveToNewPos();
+            }
+        }
+        // --- 足場チェックここまで ---
+
         // クールダウンゲージを更新
         if (cooldownGauge != null)
         {
             float timeSinceLastMove = Time.time - lastMoveTime;
             cooldownGauge.fillAmount = Mathf.Clamp01(timeSinceLastMove / moveCooldown);
         }
-        
+
         // スペースキーで通常弾を発射
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // クールダウンが終了しているかチェック
+            bool canFire = Time.time >= lastFireTime + fireCooldown;
+
+            if (canFire)
+            {
                 // --- Fire Normal Bullet ---
                 GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
                 BulletController bulletCtrl = bullet.GetComponent<BulletController>();
@@ -68,6 +94,8 @@ public class Kyaracon : MonoBehaviour
                     // ターゲットをセットしないので、まっすぐ飛ぶ
                     bulletCtrl.Target = null;
                 }
+                lastFireTime = Time.time; // 発射時間を更新
+            }
         }
 
         if (targetObjects == null || targetObjects.Count == 0)
@@ -77,7 +105,7 @@ public class Kyaracon : MonoBehaviour
 
         // クールダウンが終了しているかチェック
         bool canMove = Time.time >= lastMoveTime + moveCooldown;
-        
+
         if (!canMove) return; // クールダウン中なら何もしない
 
         // Aキーで前のオブジェクトへ移動 (インデックス減少)
@@ -89,11 +117,7 @@ public class Kyaracon : MonoBehaviour
                 // Check if the IMMEDIATE previous target object is active
                 if (targetObjects[previousIndex] != null && targetObjects[previousIndex].activeInHierarchy)
                 {
-                    currentIndex = previousIndex;
-                    Vector3 newPosition = transform.position;
-                    newPosition.x = targetObjects[currentIndex].transform.position.x;
-                    transform.position = newPosition;
-                    lastMoveTime = Time.time; // 移動時間を更新
+                    MoveTo(previousIndex);
                 }
                 // If the immediate previous object is inactive, do nothing (player is blocked)
             }
@@ -108,16 +132,46 @@ public class Kyaracon : MonoBehaviour
                 // Check if the IMMEDIATE next target object is active
                 if (targetObjects[nextIndex] != null && targetObjects[nextIndex].activeInHierarchy)
                 {
-                    currentIndex = nextIndex;
-                    Vector3 newPosition = transform.position;
-                    newPosition.x = targetObjects[currentIndex].transform.position.x;
-                    transform.position = newPosition;  
-                    lastMoveTime = Time.time; // 移動時間を更新
+                    MoveTo(nextIndex);
                 }
                 // If the immediate next object is inactive, do nothing (player is blocked)
             }
         }
     }
+
+    private void MoveTo(int newIndex)
+    {
+        currentIndex = newIndex;
+        Vector3 newPosition = transform.position;
+        newPosition.x = targetObjects[currentIndex].transform.position.x;
+        transform.position = newPosition;
+        lastMoveTime = Time.time; // 移動時間を更新
+    }
+
+    private void FindAndMoveToNewPos()
+    {
+        // まず左を探す (リストの範囲内かつ、オブジェクトが存在しアクティブか)
+        int previousIndex = currentIndex - 1;
+        if (previousIndex >= 0 && targetObjects[previousIndex] != null && targetObjects[previousIndex].activeInHierarchy)
+        {
+            MoveTo(previousIndex);
+            Debug.Log($"Moved left to index {previousIndex} as current position became inactive (preferred).");
+            return;
+        }
+
+        // 次に右を探す (リストの範囲内かつ、オブジェクトが存在しアクティブか)
+        int nextIndex = currentIndex + 1;
+        if (nextIndex < targetObjects.Count && targetObjects[nextIndex] != null && targetObjects[nextIndex].activeInHierarchy)
+        {
+            MoveTo(nextIndex);
+            Debug.Log($"Moved right to index {nextIndex} as current position became inactive.");
+            return;
+        }
+
+        // 移動先がなかった場合
+        Debug.LogWarning("Could not find an active position to move to!");
+    }
+
 
     void LateUpdate()
     {
