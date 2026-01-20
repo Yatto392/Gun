@@ -31,6 +31,8 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Rigidbodyコンポーネントを取得
+        Debug.Log($"Bullet Rigidbody found: {rb != null}"); // Rigidbodyの取得状況をログ出力
+
         if (rb == null)
         {
             Debug.LogError("BulletController: Rigidbody component not found on this GameObject.", this);
@@ -41,7 +43,7 @@ public class BulletController : MonoBehaviour
         // 弾丸に初速を与える
         rb.linearVelocity = transform.forward * speed;
 
-        Destroy(gameObject,1);
+        Destroy(gameObject,5); // 弾丸の寿命を5秒に延長
     }
 
     void Update()

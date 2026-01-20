@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // UIコンポーネントを使用するために追加
 
-
 public class Kyaracon : MonoBehaviour
 {
     public List<GameObject> targetObjects;
@@ -35,6 +34,9 @@ public class Kyaracon : MonoBehaviour
     public float reloadTime = 1.5f; // リロード時間
     private bool isReloading = false; // リロード中か
     public TextMeshProUGUI ammoText; // 弾薬数を表示するUIテキスト
+
+    [Header("Bullet Spawn Point")]
+    public Transform bulletSpawnPoint; // 弾丸の発射位置を定義するTransform
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -110,14 +112,25 @@ public class Kyaracon : MonoBehaviour
         // スペースキーで通常弾を発射
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("Space key pressed."); // スペースキーが押されたかログ出力
+
             // クールダウン、マガジン弾数、リロード中でないことをチェック
             bool canFire = Time.time >= lastFireTime + fireCooldown && currentMagazineAmmo > 0 && !isReloading;
 
-            if (canFire)
+            // 発射できない理由をログに出力
+            if (!canFire)
+            {
+                Debug.LogWarning("Cannot fire!");
+                Debug.Log($"Time condition met: {Time.time >= lastFireTime + fireCooldown}");
+                Debug.Log($"Has ammo: {currentMagazineAmmo > 0} (Ammo: {currentMagazineAmmo})");
+                Debug.Log($"Not reloading: {!isReloading}");
+            }
+            else
             {
                 Fire();
             }
-            else if (currentMagazineAmmo <= 0)
+
+            if (currentMagazineAmmo <= 0 && !isReloading)
             {
                 Debug.Log("マガジンが空です！リロードしてください。");
                 // ここで自動リロードを開始することも可能
@@ -168,11 +181,25 @@ public class Kyaracon : MonoBehaviour
 
     void Fire()
     {
+        Debug.Log("Fire() method called. Instantiating bullet.");
+        if (bulletPrefab == null)
+        {
+            Debug.LogError("Bullet Prefab is not set in the inspector!");
+            return;
+        }
+        if (bulletSpawnPoint == null) // 新しいnullチェック
+        {
+            Debug.LogError("Bullet Spawn Point is not set in the inspector! Cannot fire bullet.", this);
+            return;
+        }
+
+
         currentMagazineAmmo--; // 弾を1発消費
         lastFireTime = Time.time; // 発射時間を更新
         UpdateAmmoUI();
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        // bulletSpawnPointの位置と回転を使用して弾丸を生成
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         BulletController bulletCtrl = bullet.GetComponent<BulletController>();
 
         if (bulletCtrl != null)
