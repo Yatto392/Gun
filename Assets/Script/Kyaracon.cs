@@ -1,7 +1,10 @@
 
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // UIコンポーネントを使用するために追加
+
 
 public class Kyaracon : MonoBehaviour
 {
@@ -23,6 +26,16 @@ public class Kyaracon : MonoBehaviour
 
     private float previousX;
     private float _currentTargetYRotation;
+
+    [Header("Ammo")]
+    public int maxAmmo = 150; // 最大総弾薬数
+    public int currentAmmo = 150; // 現在の総弾薬数
+    public int magazineSize = 30; // マガジンのサイズ
+    public int currentMagazineAmmo; // 現在のマガジン内の弾数
+    public float reloadTime = 1.5f; // リロード時間
+    private bool isReloading = false; // リロード中か
+    public TextMeshProUGUI ammoText; // 弾薬数を表示するUIテキスト
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,11 +60,20 @@ public class Kyaracon : MonoBehaviour
 
         previousX = transform.position.x;
         _currentTargetYRotation = 0f;
+
+        currentMagazineAmmo = magazineSize; // 最初はマガジンを満タンに
+        UpdateAmmoUI();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // リロード中は他のアクションを不可
+        if (isReloading)
+        {
+            return;
+        }
+
         // --- 現在の足場が有効かチェック ---
         if (targetObjects != null && targetObjects.Count > 0)
         {
@@ -77,24 +99,29 @@ public class Kyaracon : MonoBehaviour
             cooldownGauge.fillAmount = Mathf.Clamp01(timeSinceLastMove / moveCooldown);
         }
 
+        // Rキーでリロード
+        if (Input.GetKeyDown(KeyCode.R) && currentMagazineAmmo < magazineSize && currentAmmo > 0)
+        {
+            StartCoroutine(Reload());
+            return; // リロード中は他の処理をしない
+        }
+
+
         // スペースキーで通常弾を発射
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // クールダウンが終了しているかチェック
-            bool canFire = Time.time >= lastFireTime + fireCooldown;
+            // クールダウン、マガジン弾数、リロード中でないことをチェック
+            bool canFire = Time.time >= lastFireTime + fireCooldown && currentMagazineAmmo > 0 && !isReloading;
 
             if (canFire)
             {
-                // --- Fire Normal Bullet ---
-                GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-                BulletController bulletCtrl = bullet.GetComponent<BulletController>();
-
-                if (bulletCtrl != null)
-                {
-                    // ターゲットをセットしないので、まっすぐ飛ぶ
-                    bulletCtrl.Target = null;
-                }
-                lastFireTime = Time.time; // 発射時間を更新
+                Fire();
+            }
+            else if (currentMagazineAmmo <= 0)
+            {
+                Debug.Log("マガジンが空です！リロードしてください。");
+                // ここで自動リロードを開始することも可能
+                // StartCoroutine(Reload());
             }
         }
 
@@ -138,6 +165,49 @@ public class Kyaracon : MonoBehaviour
             }
         }
     }
+
+    void Fire()
+    {
+        currentMagazineAmmo--; // 弾を1発消費
+        lastFireTime = Time.time; // 発射時間を更新
+        UpdateAmmoUI();
+
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        BulletController bulletCtrl = bullet.GetComponent<BulletController>();
+
+        if (bulletCtrl != null)
+        {
+            // ターゲットをセットしないので、まっすぐ飛ぶ
+            bulletCtrl.Target = null;
+        }
+    }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("リロード中...");
+
+        yield return new WaitForSeconds(reloadTime);
+
+        int neededAmmo = magazineSize - currentMagazineAmmo;
+        int ammoToReload = Mathf.Min(neededAmmo, currentAmmo);
+
+        currentMagazineAmmo += ammoToReload;
+        currentAmmo -= ammoToReload;
+
+        isReloading = false;
+        UpdateAmmoUI();
+        Debug.Log("リロード完了！");
+    }
+
+    void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = $"{currentMagazineAmmo} / {currentAmmo}";
+        }
+    }
+
 
     private void MoveTo(int newIndex)
     {

@@ -26,27 +26,28 @@ public class BulletController : MonoBehaviour
         get { return _target; }
     }
 
+    private Rigidbody rb; // Rigidbodyへの参照を追加
+
     void Start()
     {
-        Destroy(gameObject,3);
+        rb = GetComponent<Rigidbody>(); // Rigidbodyコンポーネントを取得
+        if (rb == null)
+        {
+            Debug.LogError("BulletController: Rigidbody component not found on this GameObject.", this);
+            // Rigidbodyがない場合は処理を中断するか、Rigidbodyを追加するなどの対応が必要
+            return;
+        }
+
+        // 弾丸に初速を与える
+        rb.linearVelocity = transform.forward * speed;
+
+        Destroy(gameObject,1);
     }
 
     void Update()
     {
-        switch (currentState)
-        {
-            case BulletState.Homing: // Now functions as Straight Flight
-                // --- Straight Flight Logic (XY Plane) ---
-                // Simply move forward along current transform.forward, constrained to XY plane
-
-                // 1. 前進 (Z座標を固定)
-                float originalZ = transform.position.z;
-                transform.position += transform.forward * speed * Time.deltaTime;
-                Vector3 newPos = transform.position;
-                newPos.z = originalZ;
-                transform.position = newPos;
-                break;
-        }
+        // Rigidbodyで移動を制御するため、Updateでのtransform操作は削除
+        // 必要であれば、ここでRigidbodyを使った追加の力などを加える
     }
 
     // FindAvoidancePath is no longer used.
