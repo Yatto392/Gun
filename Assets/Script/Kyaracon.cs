@@ -1,9 +1,13 @@
 
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // UIコンポーネントを使用するために追加
+
+// しゃがみ動作の制御モード
+public enum CrouchMode { Toggle, Hold }
 
 public class Kyaracon : MonoBehaviour
 {
@@ -38,6 +42,11 @@ public class Kyaracon : MonoBehaviour
     [Header("Bullet Spawn Point")]
     public Transform bulletSpawnPoint; // 弾丸の発射位置を定義するTransform
 
+    [Header("Crouch Settings")]
+    public Animator animator;
+    public CrouchMode crouchMode = CrouchMode.Toggle;
+    private const string syagamiParameter = "Syagami";
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,6 +69,16 @@ public class Kyaracon : MonoBehaviour
             mainCamera = Camera.main;
         }
 
+        // Animatorの参照を取得
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError("Animator component not found on the GameObject or its children!", this);
+            }
+        }
+
         previousX = transform.position.x;
         _currentTargetYRotation = 0f;
 
@@ -70,6 +89,8 @@ public class Kyaracon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleCrouchInput();
+
         // リロード中は他のアクションを不可
         if (isReloading)
         {
@@ -142,6 +163,19 @@ public class Kyaracon : MonoBehaviour
         {
             return;
         }
+        
+        // --- 移動入力のデバッグ ---
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        {
+             Debug.Log("Move key (A or D) pressed.");
+             bool canMoveCheck = Time.time >= lastMoveTime + moveCooldown;
+             if (!canMoveCheck)
+             {
+                 Debug.LogWarning($"Move key pressed, but cannot move due to cooldown!");
+                 Debug.Log($"Time: {Time.time}, lastMoveTime: {lastMoveTime}, moveCooldown: {moveCooldown}");
+             }
+        }
+        // --- デバッグここまで ---
 
         // クールダウンが終了しているかチェック
         bool canMove = Time.time >= lastMoveTime + moveCooldown;
@@ -176,6 +210,35 @@ public class Kyaracon : MonoBehaviour
                 }
                 // If the immediate next object is inactive, do nothing (player is blocked)
             }
+        }
+    }
+
+    private void HandleCrouchInput()
+    {
+        if (animator == null) return;
+
+        switch (crouchMode)
+        {
+            case CrouchMode.Hold:
+                // Sキーを押し続けている間だけSyagamiをtrueにする
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    animator.SetBool(syagamiParameter, true);
+                }
+                else if (Input.GetKeyUp(KeyCode.S))
+                {
+                    animator.SetBool(syagamiParameter, false);
+                }
+                break;
+
+            case CrouchMode.Toggle:
+                // Sキーを押すたびにSyagamiのtrue/falseを切り替える
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    bool isCrouching = animator.GetBool(syagamiParameter);
+                    animator.SetBool(syagamiParameter, !isCrouching);
+                }
+                break;
         }
     }
 
