@@ -38,6 +38,7 @@ public class Kyaracon : MonoBehaviour
     public float reloadTime = 1.5f;
     private bool isReloading = false;
     public TextMeshProUGUI ammoText;
+    public Image ammoGauge;
 
     [Header("Bullet Spawn Point")]
     public Transform bulletSpawnPoint;
@@ -249,6 +250,7 @@ public class Kyaracon : MonoBehaviour
 
     IEnumerator Reload()
     {
+        animator.SetTrigger("Gun_Reload");
         isReloading = true;
         Debug.Log("リロード中...");
 
@@ -271,6 +273,14 @@ public class Kyaracon : MonoBehaviour
         {
             ammoText.text = $"{currentMagazineAmmo} / {currentAmmo}";
         }
+
+        if (ammoGauge != null)
+        {
+            if (magazineSize > 0)
+            {
+                ammoGauge.fillAmount = (float)currentMagazineAmmo / magazineSize;
+            }
+        }
     }
 
     private void HandleMove(int newIndex, float targetRotation)
@@ -278,9 +288,7 @@ public class Kyaracon : MonoBehaviour
         GameObject destination = targetObjects[newIndex];
         GameObject currentPos = targetObjects[currentIndex];
 
-        bool isMovingBackwards = newIndex < currentIndex;
-
-        if (destination.CompareTag("Syagami") || (currentPos.CompareTag("Syagami") && isMovingBackwards))
+        if (destination.CompareTag("Syagami") || currentPos.CompareTag("Syagami"))
         {
             bool isCrouching = animator.GetBool(syagamiParameter);
             if (isCrouching)
@@ -315,7 +323,10 @@ public class Kyaracon : MonoBehaviour
         yield return new WaitForSeconds(postCrouchMoveDelay);
 
         MoveTo(newIndex, false);
-        animator.SetBool(syagamiParameter, false);
+        if (!targetObjects[newIndex].CompareTag("Syagami"))
+        {
+            animator.SetBool(syagamiParameter, false);
+        }
     }
 
     private void MoveTo(int newIndex, bool updateCooldown = true)
