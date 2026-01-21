@@ -293,6 +293,7 @@ Transform:
   - {fileID: 368386054}
   - {fileID: 804164973}
   - {fileID: 1965477653}
+  - {fileID: 779652568}
   - {fileID: 827196669}
   - {fileID: 874439962}
   - {fileID: 1126446820}
@@ -1556,6 +1557,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 694196258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &779652567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779652568}
+  m_Layer: 0
+  m_Name: pos (8)
+  m_TagString: Syagami
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &779652568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779652567}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 33.1, y: 3.6319904, z: 6.79502}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 47451862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &804164972
 GameObject:
@@ -4308,6 +4340,7 @@ MonoBehaviour:
   - {fileID: 368386053}
   - {fileID: 804164972}
   - {fileID: 1965477652}
+  - {fileID: 779652567}
   bulletPrefab: {fileID: 9035271514674803680, guid: a3e12761e7203409581ffbc25c6eebc1, type: 3}
   fireCooldown: 0.5
   moveCooldown: 0.5
@@ -4320,10 +4353,11 @@ MonoBehaviour:
   magazineSize: 6
   currentMagazineAmmo: 0
   reloadTime: 1
-  ammoText: {fileID: 0}
+  ammoText: {fileID: 1393815096}
   bulletSpawnPoint: {fileID: 704778469}
   animator: {fileID: 1935054635}
   crouchMode: 0
+  syagamiMoveAnimationDuration: 0.5
 --- !u!65 &1935054633
 BoxCollider:
   m_ObjectHideFlags: 0
