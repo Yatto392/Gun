@@ -85,17 +85,17 @@ public class Enemy : MonoBehaviour
 
     void Fire()
     {
-        if (bulletPrefab == null || bulletSpawnPoint == null)
+        if (bulletPrefab == null || bulletSpawnPoint == null || player == null)
         {
-            Debug.LogError("Bullet Prefab or Spawn Point not set for the enemy.", this);
+            Debug.LogError("Bullet Prefab, Spawn Point, or Player not set for the enemy.", this);
             return;
         }
 
         lastFireTime = Time.time;
-        Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        
-        // We can optionally add logic to the bullet to fly towards the player
-        // For now, it uses the Kyaracon system of firing straight from the spawn point's orientation
+        Vector3 directionToPlayer = (player.position - bulletSpawnPoint.position).normalized;
+        Quaternion bulletLookRotation = Quaternion.LookRotation(directionToPlayer);
+
+        Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletLookRotation);
     }
 
     // For debugging in the editor

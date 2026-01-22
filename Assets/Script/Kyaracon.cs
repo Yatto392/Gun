@@ -48,8 +48,7 @@ public class Kyaracon : MonoBehaviour
     public CrouchMode crouchMode = CrouchMode.Toggle;
     private const string syagamiParameter = "Syagami";
     private const string syagamiIdouParameter = "Syagami_idou";
-    public float syagamiMoveAnimationDuration = 0.5f;
-    public float postCrouchMoveDelay = 0.15f;
+    public float syagamiMoveDuration = 0.25f;
 
     void Start()
     {
@@ -317,16 +316,25 @@ public class Kyaracon : MonoBehaviour
     IEnumerator MoveWithAnimation(int newIndex)
     {
         lastMoveTime = Time.time;
-        animator.SetTrigger(syagamiIdouParameter);
+        animator.SetBool(syagamiIdouParameter, true);
 
-        yield return new WaitForSeconds(syagamiMoveAnimationDuration);
-        yield return new WaitForSeconds(postCrouchMoveDelay);
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = new Vector3(targetObjects[newIndex].transform.position.x, transform.position.y, transform.position.z);
+        float elapsedTime = 0f;
 
-        MoveTo(newIndex, false);
-        if (!targetObjects[newIndex].CompareTag("Syagami"))
+        while (elapsedTime < syagamiMoveDuration)
         {
-            animator.SetBool(syagamiParameter, false);
+            float newX = Mathf.Lerp(startPosition.x, targetPosition.x, elapsedTime / syagamiMoveDuration);
+            transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        transform.position = targetPosition; // Ensure it reaches the exact position
+        currentIndex = newIndex;
+
+        animator.SetBool(syagamiIdouParameter, false);
+        animator.SetBool(syagamiParameter, false); // しゃがみ移動終了後、しゃがみ状態を解除
     }
 
     private void MoveTo(int newIndex, bool updateCooldown = true)
