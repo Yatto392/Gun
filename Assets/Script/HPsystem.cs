@@ -49,7 +49,9 @@ public class HPsystem : MonoBehaviour
     {
         GameObject _damageObj = Instantiate(DamageObj);
         _damageObj.GetComponent<TextMeshPro>().text = _damage.ToString();
-        _damageObj.transform.position = PosObj.transform.position + AdjPos;
+        Vector3 damagePosition = PosObj.transform.position + AdjPos;
+        damagePosition.x += Random.Range(-0.5f, 0.5f); // Add random X offset
+        _damageObj.transform.position = damagePosition;
         
         Hp -= _damage;
         Hp = Mathf.Max(0, Hp); // Ensure HP doesn't go below 0
