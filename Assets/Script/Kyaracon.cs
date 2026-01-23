@@ -116,33 +116,38 @@ public class Kyaracon : MonoBehaviour
             cooldownGauge.fillAmount = Mathf.Clamp01(timeSinceLastMove / moveCooldown);
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && currentMagazineAmmo < magazineSize && currentAmmo > 0)
+        bool isCrouching = animator.GetBool(syagamiParameter);
+
+        if (!isCrouching)
         {
-            StartCoroutine(Reload());
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Space key pressed.");
-
-            bool canFire = Time.time >= lastFireTime + fireCooldown && currentMagazineAmmo > 0 && !isReloading;
-
-            if (!canFire)
+            if (Input.GetKeyDown(KeyCode.R) && currentMagazineAmmo < magazineSize && currentAmmo > 0)
             {
-                Debug.LogWarning("Cannot fire!");
-                Debug.Log($"Time condition met: {Time.time >= lastFireTime + fireCooldown}");
-                Debug.Log($"Has ammo: {currentMagazineAmmo > 0} (Ammo: {currentMagazineAmmo})");
-                Debug.Log($"Not reloading: {!isReloading}");
-            }
-            else
-            {
-                Fire();
+                StartCoroutine(Reload());
+                return;
             }
 
-            if (currentMagazineAmmo <= 0 && !isReloading)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("マガジンが空です！リロードしてください。");
+                Debug.Log("Space key pressed.");
+
+                bool canFire = Time.time >= lastFireTime + fireCooldown && currentMagazineAmmo > 0 && !isReloading;
+
+                if (!canFire)
+                {
+                    Debug.LogWarning("Cannot fire!");
+                    Debug.Log($"Time condition met: {Time.time >= lastFireTime + fireCooldown}");
+                    Debug.Log($"Has ammo: {currentMagazineAmmo > 0} (Ammo: {currentMagazineAmmo})");
+                    Debug.Log($"Not reloading: {!isReloading}");
+                }
+                else
+                {
+                    Fire();
+                }
+
+                if (currentMagazineAmmo <= 0 && !isReloading)
+                {
+                    Debug.Log("マガジンが空です！リロードしてください。");
+                }
             }
         }
 
@@ -309,7 +314,10 @@ public class Kyaracon : MonoBehaviour
         }
         else
         {
-            MoveTo(newIndex);
+            if (!animator.GetBool(syagamiParameter))
+            {
+                MoveTo(newIndex);
+            }
         }
     }
 

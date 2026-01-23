@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f933278cb294b54bcc89ee6d8996ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletController
-  speed: 75
+  speed: 70
   rotSpeed: 360
   avoidanceDistance: 1
   avoidanceAngle: 45
