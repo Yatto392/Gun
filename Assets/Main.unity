@@ -3044,7 +3044,7 @@ PrefabInstance:
     - target: {fileID: -650679000888355955, guid: 4d6f6417813884663ba6fb1c86f49a71, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 91940b5e220bd45dab3595fd59d4886f, type: 2}
+      objectReference: {fileID: 2100000, guid: 20c131e84fe9b4f328e30e9625842e81, type: 2}
     - target: {fileID: 805098333363774982, guid: 4d6f6417813884663ba6fb1c86f49a71, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -3291,7 +3291,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 20c131e84fe9b4f328e30e9625842e81, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6003,7 +6003,7 @@ MonoBehaviour:
   moveCooldown: 0.5
   cooldownGauge: {fileID: 2005616852}
   mainCamera: {fileID: 330585545}
-  rotationSpeed: 400
+  rotationSpeed: 360
   maxRotationY: 3.6
   maxAmmo: 150
   currentAmmo: 150
