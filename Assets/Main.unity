@@ -1605,6 +1605,249 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 5.14}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &291801367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291801370}
+  - component: {fileID: 291801369}
+  - component: {fileID: 291801368}
+  m_Layer: 0
+  m_Name: Spline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &291801368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291801367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b74686beb0670a4ea61325c0acf4411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Splines::UnityEngine.Splines.SplineInstantiate
+  m_Container: {fileID: 291801369}
+  m_ItemsToInstantiate:
+  - prefab: {fileID: 0}
+    Prefab: {fileID: 5231053016383350642, guid: 30c819560420f824da028f3502f83728, type: 3}
+    probability: 0
+    Probability: 0
+  m_Method: 2
+  m_Space: 2
+  m_Spacing: {x: 1, y: 1}
+  m_Up: 1
+  m_Forward: 2
+  m_PositionOffset:
+    setup: 0
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    randomX: 0
+    randomY: 0
+    randomZ: 0
+    space: 0
+  m_RotationOffset:
+    setup: 1
+    min: {x: 0, y: -13.69, z: 0}
+    max: {x: 0, y: 3.03, z: 0}
+    randomX: 0
+    randomY: 0
+    randomZ: 0
+    space: 0
+  m_ScaleOffset:
+    setup: 0
+    min: {x: 0, y: 0, z: 0}
+    max: {x: 0, y: 0, z: 0}
+    randomX: 0
+    randomY: 0
+    randomZ: 0
+    space: 0
+  m_DeprecatedInstances: []
+  m_AutoRefresh: 1
+  m_Seed: -43096
+--- !u!114 &291801369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291801367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Splines::UnityEngine.Splines.SplineContainer
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 0
+        y: 0
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.54868436
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.54868436
+      Rotation:
+        value:
+          x: -0.21476217
+          y: 0.6072076
+          z: 0.13632765
+          w: 0.7527224
+    - Position:
+        x: 4.694331
+        y: 2.682358
+        z: 0.93469715
+      TangentIn:
+        x: -0
+        y: -0
+        z: -1.8771418
+      TangentOut:
+        x: 0
+        y: 0
+        z: 2.081766
+      Rotation:
+        value:
+          x: -0.16287538
+          y: 0.5703448
+          z: 0.04673577
+          w: 0.8037376
+    - Position:
+        x: 10.795977
+        y: 3.5340152
+        z: 3.6885424
+      TangentIn:
+        x: -0
+        y: -0
+        z: -2.2414114
+      TangentOut:
+        x: 0
+        y: 0
+        z: 2.3063283
+      Rotation:
+        value:
+          x: -0.15031633
+          y: 0.59653795
+          z: -0.14189452
+          w: 0.7755086
+    - Position:
+        x: 17.923485
+        y: 3.528692
+        z: 4.185525
+      TangentIn:
+        x: -0
+        y: -0
+        z: -2.2726429
+      TangentOut:
+        x: 0
+        y: 0
+        z: 2.2158005
+      Rotation:
+        value:
+          x: 0.030524109
+          y: 0.709663
+          z: -0.14351755
+          w: 0.68909323
+    - Position:
+        x: 23.873375
+        y: 0.30720153
+        z: 3.5935373
+      TangentIn:
+        x: -0
+        y: -0
+        z: -1.9636662
+      TangentOut:
+        x: 0
+        y: 0
+        z: 1.5663779
+      Rotation:
+        value:
+          x: 0.09539042
+          y: 0.7239485
+          z: -0.103724316
+          w: 0.67530775
+    - Position:
+        x: 28.180134
+        y: 0.0000010048706
+        z: 3.4092875
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.4321631
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.4321631
+      Rotation:
+        value:
+          x: 0.024604725
+          y: 0.72160363
+          z: -0.025679858
+          w: 0.69139236
+    m_MetaData:
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []
+--- !u!4 &291801370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291801367}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.493724, y: -0.0000001820813, z: 12.173377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,7 +3521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6566636a2ac8b4881879f1fd812bf038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPsystem
-  pos: {fileID: 1423007277}
+  pos: {fileID: 142783828}
   Hp: 6
   maxHp: 6
   DamageObj: {fileID: 2555800392395820938, guid: 9b2c3eb4e3baf4cbe82a78a82e0df9e8, type: 3}
@@ -7881,3 +8124,4 @@ SceneRoots:
   - {fileID: 1897845898}
   - {fileID: 1520955809}
   - {fileID: 1211793866}
+  - {fileID: 291801370}
