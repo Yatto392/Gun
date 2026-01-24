@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4648990917335733474}
   - component: {fileID: 7449094325566218280}
   - component: {fileID: 356324383822348557}
+  - component: {fileID: -7708837804862952879}
   m_Layer: 0
   m_Name: Wall_06
   m_TagString: Untagged
@@ -117,6 +118,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 5, z: 0.3641686}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &-7708837804862952879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962307991406576125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &470893259701149847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -125,6 +144,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8587048437761923911}
     m_Modifications:
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineWidth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: precomputeOutline
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeKeys.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeValues.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5015851073235153941, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -207,6 +262,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8587048437761923911}
     m_Modifications:
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineWidth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: precomputeOutline
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeKeys.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeValues.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5015851073235153941, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -289,6 +380,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8587048437761923911}
     m_Modifications:
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineWidth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: precomputeOutline
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeKeys.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeValues.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5015851073235153941, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -371,6 +498,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8587048437761923911}
     m_Modifications:
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineWidth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: precomputeOutline
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeKeys.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeValues.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5015851073235153941, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -453,6 +616,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8587048437761923911}
     m_Modifications:
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineWidth
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: precomputeOutline
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeKeys.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 208058280706017043, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
+      propertyPath: bakeValues.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5015851073235153941, guid: fd8212a6b4413da43bfbf816034a6a69, type: 3}
       propertyPath: m_RootOrder
       value: 4

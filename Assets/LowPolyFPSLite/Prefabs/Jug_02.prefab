@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8318548330947953841}
   - component: {fileID: 6094950207118815355}
   - component: {fileID: 6275855722186722743}
+  - component: {fileID: -7191882035003326393}
   m_Layer: 0
   m_Name: Jug_02
   m_TagString: Untagged
@@ -112,3 +113,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.29523057, y: 0.4479887, z: 0.29523054}
   m_Center: {x: -0.000000007450581, y: 0.22399431, z: 0.00000011920929}
+--- !u!114 &-7191882035003326393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734595923484152238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

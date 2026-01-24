@@ -49,6 +49,7 @@ public class Kyaracon : MonoBehaviour
     private const string syagamiParameter = "Syagami";
     private const string syagamiIdouParameter = "Syagami_idou";
     public float syagamiMoveDuration = 0.25f;
+    private int _moveRequestIndex = -1; // しゃがみ移動リクエスト
 
     void Start()
     {
@@ -156,44 +157,64 @@ public class Kyaracon : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log("Move key (A or D) pressed.");
-            bool canMoveCheck = Time.time >= lastMoveTime + moveCooldown;
-            if (!canMoveCheck)
-            {
-                Debug.LogWarning("Move key pressed, but cannot move due to cooldown!");
-                Debug.Log($"Time: {Time.time}, lastMoveTime: {lastMoveTime}, moveCooldown: {moveCooldown}");
-            }
-        }
-
         bool canMove = Time.time >= lastMoveTime + moveCooldown;
-        if (!canMove) return;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        // 移動入力
+        if (canMove && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
         {
-            int previousIndex = currentIndex - 1;
-            if (previousIndex >= 0)
+            int direction = Input.GetKeyDown(KeyCode.A) ? -1 : 1;
+            int targetIndex = currentIndex + direction;
+
+            if (targetIndex >= 0 && targetIndex < targetObjects.Count &&
+                targetObjects[targetIndex] != null && targetObjects[targetIndex].activeInHierarchy)
             {
-                if (targetObjects[previousIndex] != null && targetObjects[previousIndex].activeInHierarchy)
+                GameObject destination = targetObjects[targetIndex];
+                GameObject currentPos = targetObjects[currentIndex];
+                bool isSyagamiMove = destination.CompareTag("Syagami") || currentPos.CompareTag("Syagami");
+
+                if (isSyagamiMove)
                 {
-                    _targetCharacterYRotation = -90f;
-                    HandleMove(previousIndex, _targetCharacterYRotation);
+                    if (isCrouching)
+                    {
+                        // しゃがみ移動リクエストを設定
+                        _moveRequestIndex = targetIndex;
+                        _targetCharacterYRotation = (direction == -1) ? -90f : 90f;
+                    }
+                    else
+                    {
+                        Debug.Log("Cannot move to/from Syagami point, not crouching.");
+                    }
+                }
+                else
+                {
+                    if (!isCrouching)
+                    {
+                        _targetCharacterYRotation = (direction == -1) ? -90f : 90f;
+                        MoveTo(targetIndex);
+                    }
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        // しゃがみ移動リクエストの処理
+        if (_moveRequestIndex != -1 && isCrouching)
         {
-            int nextIndex = currentIndex + 1;
-            if (nextIndex < targetObjects.Count)
+            float currentYAngle = transform.eulerAngles.y;
+            // 回転が完了しているかチェック
+            if (Mathf.Abs(Mathf.DeltaAngle(currentYAngle, _targetCharacterYRotation)) < 1.0f)
             {
-                if (targetObjects[nextIndex] != null && targetObjects[nextIndex].activeInHierarchy)
+                // クールダウンを再度チェック
+                if (Time.time >= lastMoveTime + moveCooldown)
                 {
-                    _targetCharacterYRotation = 90f;
-                    HandleMove(nextIndex, _targetCharacterYRotation);
+                    StartCoroutine(MoveWithAnimation(_moveRequestIndex));
+                    _moveRequestIndex = -1; // リクエストを消費したのでリセット
                 }
             }
+        }
+        else if (_moveRequestIndex != -1 && !isCrouching)
+        {
+            // しゃがんでいない場合はリクエストをキャンセル
+            _moveRequestIndex = -1;
         }
     }
 
@@ -283,40 +304,6 @@ public class Kyaracon : MonoBehaviour
             if (magazineSize > 0)
             {
                 ammoGauge.fillAmount = (float)currentMagazineAmmo / magazineSize;
-            }
-        }
-    }
-
-    private void HandleMove(int newIndex, float targetRotation)
-    {
-        GameObject destination = targetObjects[newIndex];
-        GameObject currentPos = targetObjects[currentIndex];
-
-        if (destination.CompareTag("Syagami") || currentPos.CompareTag("Syagami"))
-        {
-            bool isCrouching = animator.GetBool(syagamiParameter);
-            if (isCrouching)
-            {
-                float currentYAngle = transform.eulerAngles.y;
-                if (Mathf.Abs(Mathf.DeltaAngle(currentYAngle, targetRotation)) < 1.0f)
-                {
-                    StartCoroutine(MoveWithAnimation(newIndex));
-                }
-                else
-                {
-                    Debug.Log("Not facing the correct direction for Syagami move. Rotating first.");
-                }
-            }
-            else
-            {
-                Debug.Log("Cannot move to/from Syagami point, not crouching.");
-            }
-        }
-        else
-        {
-            if (!animator.GetBool(syagamiParameter))
-            {
-                MoveTo(newIndex);
             }
         }
     }
