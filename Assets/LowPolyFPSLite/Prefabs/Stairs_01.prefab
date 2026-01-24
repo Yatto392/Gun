@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4492716684571260413}
   - component: {fileID: 1854815971588948279}
   - component: {fileID: 921454988213482207}
-  - component: {fileID: -3509471473362143182}
   m_Layer: 7
   m_Name: Stairs_01
   m_TagString: wall
@@ -113,21 +112,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.6799031, y: 3.5, z: 0.10282227}
   m_Center: {x: 0, y: 1.75, z: 0.013804432}
---- !u!114 &-3509471473362143182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 197416473921609954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []

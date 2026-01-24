@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8393694001864946285}
   - component: {fileID: 6023726615088613031}
   - component: {fileID: 42365342734558244}
-  - component: {fileID: -3530629764020458154}
   m_Layer: 7
   m_Name: WallPart_01
   m_TagString: wall
@@ -113,21 +112,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.60226387, y: 5.25, z: 0.60226387}
   m_Center: {x: 0, y: 2.625, z: 0}
---- !u!114 &-3530629764020458154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5231053016383350642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 1
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
