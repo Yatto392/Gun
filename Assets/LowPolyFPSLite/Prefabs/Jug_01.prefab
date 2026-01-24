@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3308289666739386183}
   - component: {fileID: 946079799919084476}
   - component: {fileID: 7330201483918993437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jug_01
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

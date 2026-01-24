@@ -163,6 +163,7 @@ public class Kyaracon : MonoBehaviour
         if (canMove && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
         {
             int direction = Input.GetKeyDown(KeyCode.A) ? -1 : 1;
+            _targetCharacterYRotation = (direction == -1) ? -90f : 90f; // 常に回転を設定
             int targetIndex = currentIndex + direction;
 
             if (targetIndex >= 0 && targetIndex < targetObjects.Count &&
@@ -178,7 +179,6 @@ public class Kyaracon : MonoBehaviour
                     {
                         // しゃがみ移動リクエストを設定
                         _moveRequestIndex = targetIndex;
-                        _targetCharacterYRotation = (direction == -1) ? -90f : 90f;
                     }
                     else
                     {
@@ -189,7 +189,6 @@ public class Kyaracon : MonoBehaviour
                 {
                     if (!isCrouching)
                     {
-                        _targetCharacterYRotation = (direction == -1) ? -90f : 90f;
                         MoveTo(targetIndex);
                     }
                 }
