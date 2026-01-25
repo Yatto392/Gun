@@ -13,10 +13,9 @@ namespace PSX
             pixelationPass = new PixelationPass(RenderPassEvent.BeforeRenderingPostProcessing);
         }
 
-        //ScripstableRendererFeature is an abstract class, you need this method
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            pixelationPass.Setup(renderer.cameraColorTarget);
+            pixelationPass.Setup(renderer.cameraColorTargetHandle);
             renderer.EnqueuePass(pixelationPass);
         }
     }
@@ -37,7 +36,7 @@ namespace PSX
         
         Pixelation pixelation;
         Material pixelationMaterial;
-        RenderTargetIdentifier currentTarget;
+        RTHandle currentTargetHandle;
     
         public PixelationPass(RenderPassEvent evt)
         {
@@ -73,22 +72,22 @@ namespace PSX
             CommandBufferPool.Release(cmd);
         }
     
-        public void Setup(in RenderTargetIdentifier currentTarget)
+        public void Setup(in RTHandle currentTargetHandle)
         {
-            this.currentTarget = currentTarget;
+            this.currentTargetHandle = currentTargetHandle;
         }
     
         void Render(CommandBuffer cmd, ref RenderingData renderingData)
         {
             ref var cameraData = ref renderingData.cameraData;
-            var source = currentTarget;
+            var source = currentTargetHandle;
             int destination = TempTargetId;
     
-            //getting camera width and height 
+            // カメラの幅と高さを取得
             var w = cameraData.camera.scaledPixelWidth;
             var h = cameraData.camera.scaledPixelHeight;
             
-            //setting parameters here 
+            // パラメータを設定
             cameraData.camera.depthTextureMode = cameraData.camera.depthTextureMode | DepthTextureMode.Depth;
             this.pixelationMaterial.SetFloat(WidthPixelation, this.pixelation.widthPixelation.value);
             this.pixelationMaterial.SetFloat(HeightPixelation, this.pixelation.heightPixelation.value);
@@ -97,8 +96,9 @@ namespace PSX
             int shaderPass = 0;
             cmd.SetGlobalTexture(MainTexId, source);
             cmd.GetTemporaryRT(destination, w, h, 0, FilterMode.Point, RenderTextureFormat.Default);
-            cmd.Blit(source, destination);
-            cmd.Blit(destination, source, this.pixelationMaterial, shaderPass);
+            cmd.Blit(source, destination, this.pixelationMaterial, shaderPass);
+            cmd.Blit(destination, source);
+            cmd.ReleaseTemporaryRT(destination);
         }
     }
 }

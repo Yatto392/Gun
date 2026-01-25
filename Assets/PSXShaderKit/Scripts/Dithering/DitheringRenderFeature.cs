@@ -13,10 +13,9 @@ namespace PSX
             ditheringPass = new DitheringPass(RenderPassEvent.BeforeRenderingPostProcessing);
         }
 
-        //ScripstableRendererFeature is an abstract class, you need this method
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            ditheringPass.Setup(renderer.cameraColorTarget);
+            ditheringPass.Setup(renderer.cameraColorTargetHandle);
             renderer.EnqueuePass(ditheringPass);
         }
     }
@@ -37,7 +36,7 @@ namespace PSX
         
         Dithering dithering;
         Material ditheringMaterial;
-        RenderTargetIdentifier currentTarget;
+        RTHandle currentTargetHandle;
     
         public DitheringPass(RenderPassEvent evt)
         {
@@ -73,22 +72,22 @@ namespace PSX
             CommandBufferPool.Release(cmd);
         }
     
-        public void Setup(in RenderTargetIdentifier currentTarget)
+        public void Setup(in RTHandle currentTargetHandle)
         {
-            this.currentTarget = currentTarget;
+            this.currentTargetHandle = currentTargetHandle;
         }
     
         void Render(CommandBuffer cmd, ref RenderingData renderingData)
         {
             ref var cameraData = ref renderingData.cameraData;
-            var source = currentTarget;
+            var source = currentTargetHandle;
             int destination = TempTargetId;
     
-            //getting camera width and height 
+            // カメラの幅と高さを取得
             var w = cameraData.camera.scaledPixelWidth;
             var h = cameraData.camera.scaledPixelHeight;
             
-            //setting parameters here 
+            // パラメータを設定
             cameraData.camera.depthTextureMode = cameraData.camera.depthTextureMode | DepthTextureMode.Depth;
             this.ditheringMaterial.SetInt(PatternIndex, this.dithering.patternIndex.value);
             this.ditheringMaterial.SetFloat(DitherThreshold, this.dithering.ditherThreshold.value);
@@ -98,8 +97,9 @@ namespace PSX
             int shaderPass = 0;
             cmd.SetGlobalTexture(MainTexId, source);
             cmd.GetTemporaryRT(destination, w, h, 0, FilterMode.Point, RenderTextureFormat.Default);
-            cmd.Blit(source, destination);
-            cmd.Blit(destination, source, this.ditheringMaterial, shaderPass);
+            cmd.Blit(source, destination, this.ditheringMaterial, shaderPass);
+            cmd.Blit(destination, source);
+            cmd.ReleaseTemporaryRT(destination);
         }
     }
 }
