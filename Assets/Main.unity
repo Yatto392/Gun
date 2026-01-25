@@ -1509,28 +1509,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fedc9c35d33c9544bd5239e7958d571, type: 3}
+  m_Script: {fileID: 11500000, guid: 60add0cab76d469cbdad4b80314cb093, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Picturesque.Darkbringer.DarkbringerEffect
-  sha: {fileID: 4800000, guid: 99d80d0fdb7c6724c89e77d81bbc026a, type: 3}
-  mat: {fileID: 0}
-  flatLut: {fileID: 2800000, guid: b536a29ef1c463b4a894cf616766d37b, type: 3}
-  bayerTexture: {fileID: 2800000, guid: eac7505667530464e91debe0b4a8492b, type: 3}
-  ColorBleed: 0.25
-  LinesMult: 0.8
-  ColorShift: 0.29
-  newScreenSize: {x: 160, y: 200}
-  screenStretching: {x: 2, y: 1}
-  CustomScreenSize: 1
-  AspectRatioBars: 1
-  OneBitColor: 0
-  VerticalLines: 0
-  HorizontalLines: 0
-  Dithering: 1
-  Paletting: 1
-  vTex: {fileID: 0}
-  v2DTex: {fileID: 0}
-  clearNextUpdate: 0
+  m_EditorClassIdentifier: Assembly-CSharp::PSX.FogController
+  volumeProfile: {fileID: 11400000, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
+  isEnabled: 1
+  fog: {fileID: -2108398028261217590, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
+  fogDensity: 1
+  fogDistance: 10
+  fogNear: 1
+  fogFar: 100
+  fogAltScale: 10
+  fogThinning: 100
+  noiseScale: 100
+  noiseStrength: 0.05
+  fogColor:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!1 &339450765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3654934372253022927, guid: 4d6f6417813884663ba6fb1c86f49a71, type: 3}
