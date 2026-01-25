@@ -1360,10 +1360,6 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
-  - component: {fileID: 330585550}
-  - component: {fileID: 330585551}
-  - component: {fileID: 330585553}
-  - component: {fileID: 330585552}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1513,82 +1509,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba54bbb8d59fc1d48a351f7d6a559f82, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fedc9c35d33c9544bd5239e7958d571, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Cam.Effects.RetroSize
-  horizontalResolution: 160
-  verticalResolution: 144
---- !u!114 &330585550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64f9144a767f6d842a42451779fca81c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Cam.Effects.RetroPixelMax
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 0}
-  - {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 0}
-  - {r: 0.23529412, g: 0.23529412, b: 0.23529412, a: 0}
-  - {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0}
-  - {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 0}
-  - {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
---- !u!114 &330585551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad06e60d35a297149adcc16be5979131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Cam.Effects.Dither
-  pattern: {fileID: 2800000, guid: 3fe921721e92c8d45ad530c33811eb6f, type: 3}
-  threshold: 0.45
-  strength: 0.45
---- !u!114 &330585552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ddcc486b25a8b24c9a0ce91edb491c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Cam.Effects.RetroPixelPalette
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  gradings:
-  - size: 0
-    blending: 0
-    c1: {r: 0, g: 0, b: 0, a: 0}
-    c2: {r: 1, g: 1, b: 1, a: 0}
-    c1B: {r: 0, g: 0, b: 0, a: 0}
-    c2B: {r: 0, g: 0, b: 0, a: 0}
---- !u!114 &330585553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2826bca8224422341a729a2e2a7a8567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Cam.Effects.Posterize
-  redComponent: 8
-  greenComponent: 8
-  blueComponent: 8
+  m_EditorClassIdentifier: Assembly-CSharp::Picturesque.Darkbringer.DarkbringerEffect
+  sha: {fileID: 4800000, guid: 99d80d0fdb7c6724c89e77d81bbc026a, type: 3}
+  mat: {fileID: 0}
+  flatLut: {fileID: 2800000, guid: b536a29ef1c463b4a894cf616766d37b, type: 3}
+  bayerTexture: {fileID: 2800000, guid: eac7505667530464e91debe0b4a8492b, type: 3}
+  ColorBleed: 0.25
+  LinesMult: 0.8
+  ColorShift: 0.29
+  newScreenSize: {x: 160, y: 200}
+  screenStretching: {x: 2, y: 1}
+  CustomScreenSize: 1
+  AspectRatioBars: 1
+  OneBitColor: 0
+  VerticalLines: 0
+  HorizontalLines: 0
+  Dithering: 1
+  Paletting: 1
+  vTex: {fileID: 0}
+  v2DTex: {fileID: 0}
+  clearNextUpdate: 0
 --- !u!1 &339450765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3654934372253022927, guid: 4d6f6417813884663ba6fb1c86f49a71, type: 3}
