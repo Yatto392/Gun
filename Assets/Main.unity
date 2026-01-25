@@ -1359,7 +1359,6 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1500,34 +1499,6 @@ MonoBehaviour:
   player: {fileID: 1935054634}
   smoothTime: 0.3
   offsetX: 4.85
---- !u!114 &330585549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60add0cab76d469cbdad4b80314cb093, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PSX.FogController
-  volumeProfile: {fileID: 11400000, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
-  isEnabled: 1
-  fog: {fileID: -2108398028261217590, guid: ab09877e2e707104187f6f83e2f62510, type: 2}
-  fogDensity: 1
-  fogDistance: 10
-  fogNear: 1
-  fogFar: 100
-  fogAltScale: 10
-  fogThinning: 100
-  noiseScale: 100
-  noiseStrength: 0.05
-  fogColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
 --- !u!1 &339450765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3654934372253022927, guid: 4d6f6417813884663ba6fb1c86f49a71, type: 3}
